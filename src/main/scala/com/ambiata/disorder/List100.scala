@@ -9,5 +9,5 @@ object List100 {
     Arbitrary(for {
       n <- choose(0, 100)
       l <- listOfN(n, arbitrary[A])
-    } yield l)
+    } yield List100(l))
 }

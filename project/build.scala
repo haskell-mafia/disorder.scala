@@ -11,7 +11,7 @@ object build extends Build {
     id = "poacher"
   , base = file(".")
   , settings =
-    Defaults.coreDefaultSettings ++
+    Defaults.coreD-efaultSettings ++
     promulgate.library(s"com.ambiata.disorder", "ambiata-oss") ++
     Seq[Settings](
       name := "poacher"

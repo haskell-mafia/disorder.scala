@@ -19,5 +19,9 @@ class ListVariantSpec extends Specification with ScalaCheck { def is = s2"""
     ${ prop((x: NonEmptyList100[Int]) => x.value.size <= 100) }
     ${ prop((x: NonEmptyList1000[Int]) => x.value.size <= 1000) }
 
+  Constraints are met:
+
+    ${ prop((x: DistinctList[Int]) => x.value.toSet.toList == x) }
+
 """
 }
