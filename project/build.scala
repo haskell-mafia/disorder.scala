@@ -8,13 +8,12 @@ object build extends Build {
   type Settings = Def.Setting[_]
 
   lazy val poacher = Project(
-    id = "poacher"
+    id = "disorder"
   , base = file(".")
   , settings =
     Defaults.coreDefaultSettings ++
-    promulgate.library(s"com.ambiata.disorder", "ambiata-oss") ++
     Seq[Settings](
-      name := "poacher"
+      name := "disorder"
     , version in ThisBuild := "0.0.1"
     , organization := "com.ambiata"
     , scalaVersion := "2.11.2"
@@ -31,6 +30,6 @@ object build extends Build {
       , "-Yinline-warnings"
       )
     , javacOptions ++= Seq("-source", "1.6", "-target", "1.6")
-    )
+    ) ++ promulgate.library(s"com.ambiata.disorder", "ambiata-oss")
   )
 }
