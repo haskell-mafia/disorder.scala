@@ -21,7 +21,7 @@ class ListVariantSpec extends Specification with ScalaCheck { def is = s2"""
 
   Constraints are met:
 
-    ${ prop((x: DistinctList[Int]) => x.value.toSet.toList == x) }
+    ${ prop((x: DistinctList[Int]) => x.value.toSet.toList == x.value) }
 
 """
 }
