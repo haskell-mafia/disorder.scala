@@ -7,7 +7,7 @@ import com.ambiata.promulgate.project.ProjectPlugin._
 object build extends Build {
   type Settings = Def.Setting[_]
 
-  lazy val poacher = Project(
+  lazy val disorder = Project(
     id = "disorder"
   , base = file(".")
   , settings =
