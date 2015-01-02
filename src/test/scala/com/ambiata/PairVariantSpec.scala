@@ -9,6 +9,7 @@ class PairVariantSpec extends Specification with ScalaCheck { def is = s2"""
 
     ${ prop((x: OrderedPair[Int]) => x.first <= x.second) }
     ${ prop((x: DistinctPair[Int]) => x.first != x.second) }
+    ${ prop((x: DistinctPair[String]) => x.first != x.second) }
 
 """
 }
