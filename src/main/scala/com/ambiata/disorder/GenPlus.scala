@@ -24,12 +24,15 @@ object GenPlus {
    attempt to create the arbitrary until it matches the predicate without failing, unless
    the number of attempts is greater than 100.
    */
-  def checkGen[A](n: Int, gen: Gen[A], label: String, check: A => Boolean): Gen[A] = {
+  def checkGen[A](gen: Gen[A], label: String, check: A => Boolean): Gen[A] =
+    checkGenX(0, gen, label, check)
+
+  def checkGenX[A](n: Int, gen: Gen[A], label: String, check: A => Boolean): Gen[A] = {
     if (n > 100) Gen.fail.label(s"Couldn't generate a $label")
     else for {
       a <- gen
       z <- Gen.size
-      r <- if (check(a)) Gen.const(a) else Gen.resize(z + 1, checkGen[A](n + 1, gen, label, check))
+      r <- if (check(a)) Gen.const(a) else Gen.resize(z + 1, checkGenX[A](n + 1, gen, label, check))
     } yield r
   }
 
@@ -37,7 +40,7 @@ object GenPlus {
     b <- arbitrary[B]
     c <- arbitrary[C]
     a <- make(b, c)
-    r <- checkGen(0, a, label, check)
+    r <- checkGen(a, label, check)
   } yield r
 
 }
