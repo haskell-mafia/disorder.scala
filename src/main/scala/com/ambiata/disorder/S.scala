@@ -13,7 +13,6 @@ import scalaz._, Scalaz._
 case class S(value: String)
 
 object S {
-
   implicit def SArbitrary: Arbitrary[S] =
     Arbitrary(for {
       v <- Gen.sized(i =>
