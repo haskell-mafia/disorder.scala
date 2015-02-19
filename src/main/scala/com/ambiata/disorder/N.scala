@@ -14,6 +14,6 @@ object N {
   implicit def NArbitrary: Arbitrary[N] =
     Arbitrary(for {
       a <- arbitrary[S]
-      c <- checkGen[Char](arbitrary[Char], "Char", _ != '\n')
-    } yield N(a.value.replace('\n', c)))
+      c <- checkGen[Char](arbitrary[Char], "Char", x => x != '\n' && x != '\r')
+    } yield N(a.value.replace('\n', c).replace('\r', c)))
 }

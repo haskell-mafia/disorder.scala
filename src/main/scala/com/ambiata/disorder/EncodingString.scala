@@ -69,10 +69,9 @@ object EncodingString {
 
   def codecN(codec: Codec): Gen[String] = for {
     s <- arbitrary[S]
-    c <- checkGen[Char](arbitrary[Char], "Char", _ != '\n')
-    q <- s.map(_.value.replace('\n', c))
-    r <- checkGen[String](Gen.const(q), "EncodingN", s => validForCodec(s, codec))
-  } yield r
+    c <- checkGen[Char](arbitrary[Char], "Char", x => x != '\n' && x != '\r' && validForCodec(x.toString, codec))
+    r <- checkGen[String](Gen.const(s.value), "EncodingN", s => validForCodec(s, codec))
+  } yield r.replace('\n', c).replace('\r', c)
 
   def validForCodec(s: String, c: Codec): Boolean =
     new String(s.getBytes(c.name), c.name) == s

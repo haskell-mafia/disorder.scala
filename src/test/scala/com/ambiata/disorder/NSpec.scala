@@ -8,5 +8,7 @@ class NSpec extends Specification with ScalaCheck { def is = s2"""
 
     ${ prop((n: N) => n.value.contains('\n') ==== false) }
 
+    ${ prop((n: N) => n.value.contains('\r') ==== false) }
+
 """
 }
