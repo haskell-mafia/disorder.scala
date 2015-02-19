@@ -20,6 +20,8 @@ class EncodingStringSpec extends Specification with ScalaCheck { def is = s2"""
 
     ${ prop((s: EncodingN) => s.value.contains('\n') ==== false) }
 
+    ${ prop((s: EncodingN) => s.value.contains('\r') ==== false) }
+
     ${ prop((s: EncodingListN) => s.value.filterNot(_.contains('\n')).length ==== s.value.length) }
 
 """
