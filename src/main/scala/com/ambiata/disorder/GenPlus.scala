@@ -4,6 +4,9 @@ import org.scalacheck._, Arbitrary._, Gen._
 
 object GenPlus {
 
+  def choose(from: Int, to: Int): Gen[Int] =
+    Gen.sized(n => Gen.choose(from, Math.max(from, Math.min(n, to))))
+
   // The Gen version of this function results in too many discarded tests
   def nonEmptyListOf[A](gen: => Gen[A]): Gen[List[A]] =
     listOfSized(0, Int.MaxValue, gen)
@@ -17,7 +20,7 @@ object GenPlus {
    * }}}
    */
   def listOfSized[A](from: Int, to: Int, gen: => Gen[A]): Gen[List[A]] =
-    Gen.sized(n => Gen.choose(from, Math.max(from, Math.min(n, to))).flatMap(i => Gen.listOfN(i, gen)))
+    choose(from, to).flatMap(i => Gen.listOfN(i, gen))
 
   /*
    Safely generate an arbitrary which matches a predicate. This function will recursively
