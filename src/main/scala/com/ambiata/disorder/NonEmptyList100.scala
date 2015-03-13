@@ -9,7 +9,7 @@ case class NonEmptyList100[A](head: A, tail: List[A]) {
 object NonEmptyList100 {
   implicit def NonEmptyList100Arbitrary[A: Arbitrary]: Arbitrary[NonEmptyList100[A]] =
     Arbitrary(for {
-      n <- choose(0, 9)
+      n <- choose(0, 99)
       h <- arbitrary[A]
       t <- listOfN(n, arbitrary[A])
     } yield NonEmptyList100(h, t))
