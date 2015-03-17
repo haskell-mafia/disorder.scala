@@ -1,6 +1,7 @@
 package com.ambiata.disorder
 
 import org.specs2.{ScalaCheck, Specification}
+
 import scalaz._, Scalaz._
 
 class PairVariantSpec extends Specification with ScalaCheck { def is = s2"""
