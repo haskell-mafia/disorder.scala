@@ -1,6 +1,6 @@
 package com.ambiata.disorder
 
-import org.scalacheck._, Arbitrary._, Gen._
+import org.scalacheck._, Gen._
 
 case class NaturalLong(value: Long)
 

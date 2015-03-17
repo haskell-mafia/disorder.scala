@@ -5,15 +5,23 @@ import org.specs2.{ScalaCheck, Specification}
 
 class GenPlusSpec extends Specification with ScalaCheck { def is = s2"""
 
-   Choose is always within the range        $choose
+   chooseInt is always within the range     $chooseInt
+   chooseLong is always within the range    $chooseLong
    List of sized is always within the range $listOfSized
    List of sized with index increments by 1 $listOfSizedWithIndex
    Non empty list is never empty            $nonEmptyListOf
 
 """
 
-  def choose = prop { p: (OrderedPair[NaturalIntSmall]) =>
-    val l = GenPlus.choose(p.first.value, p.second.value)(Gen.Parameters.default).get
+  def chooseInt = prop { p: (OrderedPair[NaturalIntSmall]) =>
+    val gen = GenPlus.chooseInt(p.first.value, p.second.value)
+    val l = gen(Gen.Parameters.default).get
+    l must beGreaterThanOrEqualTo(p.first.value) and (l must beLessThanOrEqualTo(p.second.value))
+  }
+
+  def chooseLong = prop { p: (OrderedPair[NaturalLongSmall]) =>
+    val gen = GenPlus.chooseLong(p.first.value, p.second.value)
+    val l = gen(Gen.Parameters.default).get
     l must beGreaterThanOrEqualTo(p.first.value) and (l must beLessThanOrEqualTo(p.second.value))
   }
 

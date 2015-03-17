@@ -5,8 +5,11 @@ import scala.collection.JavaConverters._
 
 object GenPlus {
 
-  def choose(from: Int, to: Int): Gen[Int] =
-    Gen.sized(n => Gen.choose(from, Math.max(from, Math.min(n, to))))
+  def chooseInt(from: Int, to: Int): Gen[Int] =
+    Gen.sized(n => Gen.choose(from, math.max(from, math.min(n, to))))
+
+  def chooseLong(from: Long, to: Long): Gen[Long] =
+    Gen.sized(n => Gen.choose(from, math.max(from, math.min(n.toLong, to))))
 
   // The Gen version of this function results in too many discarded tests
   def nonEmptyListOf[A](gen: => Gen[A]): Gen[List[A]] =
@@ -21,11 +24,11 @@ object GenPlus {
    * }}}
    */
   def listOfSized[A](from: Int, to: Int, gen: => Gen[A]): Gen[List[A]] =
-    choose(from, to).flatMap(i => Gen.listOfN(i, gen))
+    chooseInt(from, to).flatMap(i => Gen.listOfN(i, gen))
 
   /** Convenient way of tagging generators with the index */
   def listOfSizedWithIndex[A](from: Int, to: Int, gen: Int => Gen[A]): Gen[List[A]] =
-    choose(from, to).flatMap(i => Gen.sequence((0 until i).toList.map(gen)).map(_.asScala.toList))
+    chooseInt(from, to).flatMap(i => Gen.sequence((0 until i).toList.map(gen)).map(_.asScala.toList))
 
   /*
    Safely generate an arbitrary which matches a predicate. This function will recursively
