@@ -12,7 +12,7 @@ import scalaz._, Scalaz._
   */
 case class S(value: String)
 
-object S {
+object S extends Corpus {
   implicit def SArbitrary: Arbitrary[S] =
     Arbitrary(for {
       v <- Gen.sized(i =>
@@ -46,47 +46,4 @@ object S {
 
   val delimeters = List("/", "|", ",", ".", "\n", "\t", "\\", "-", "_", "`",  "~", "^")
   val terminators = List("!", ".")
-
-  val languages =  List(
-      "Agda"
-    , "Axum"
-    , "Batch"
-    , "C"
-    , "C#"
-    , "C++"
-    , "Cobol"
-    , "Delphi"
-    , "F#"
-    , "Lisp"
-    , "Hack"
-    , "Haskell"
-    , "Java"
-    , "Julia"
-    , "Python"
-    , "R"
-    , "Sed"
-    , "WebQL"
-    , "Zeno"
-  )
-
-  val descriptions = List(
-      "Noob"
-    , "Novice"
-    , "Rookie"
-    , "Beginner"
-    , "Talented"
-    , "Skilled"
-    , "Intermediate"
-    , "Skillful"
-    , "Seasoned"
-    , "Proficient"
-    , "Experienced"
-    , "Advanced"
-    , "Senior"
-    , "Expert"
-  )
-
-
-
-
 }
