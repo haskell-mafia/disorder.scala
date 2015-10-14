@@ -3,6 +3,8 @@ package com.ambiata.disorder
 import org.scalacheck._, Arbitrary._, Gen._
 import scala.collection.JavaConverters._
 
+import scalaz._, Scalaz._
+
 object GenPlus {
 
   def chooseInt(from: Int, to: Int): Gen[Int] =
@@ -54,4 +56,11 @@ object GenPlus {
     r <- checkGen(a, label, check)
   } yield r
 
+  implicit def GenMonad: Monad[Gen] = new Monad[Gen] {
+
+    def point[A](a: => A): Gen[A] = Gen.const(a)
+
+    def bind[A, B](fa: Gen[A])(f: A => Gen[B]): Gen[B] = fa.flatMap(f)
+
+  }
 }
