@@ -19,6 +19,7 @@ object build extends Build {
     , scalaVersion := "2.11.2"
     , crossScalaVersions := Seq("2.11.2")
     , libraryDependencies ++= depend.scalaz ++ depend.scalacheck ++ depend.specs2
+    , depend.resolversSetting
     , scalacOptions ++= Seq(
         "-target:jvm-1.6"
       , "-deprecation"

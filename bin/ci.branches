@@ -2,4 +2,4 @@
 
 JVM_OPTS="-Dfile.encoding=UTF8 -XX:MaxPermSize=512m -Xms512m -Xmx2g -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC"; export JVM_OPTS
 
-./sbt -Dsbt.log.noformat=true "; clean; test-only -- console junitxml; +publish; echo-version"
+./sbt -Dsbt.log.noformat=true "; clean; test-only -- console junitxml; echo-version"
