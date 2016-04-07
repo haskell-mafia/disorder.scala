@@ -10,6 +10,7 @@ class GenPlusSpec extends Specification with ScalaCheck { def is = s2"""
    List of sized is always within the range $listOfSized
    List of sized with index increments by 1 $listOfSizedWithIndex
    Non empty list is never empty            $nonEmptyListOf
+   Smaller reduces the size                 $smaller
 
 """
 
@@ -37,4 +38,8 @@ class GenPlusSpec extends Specification with ScalaCheck { def is = s2"""
 
   def nonEmptyListOf =
     GenPlus.nonEmptyListOf(Gen.const(""))(Gen.Parameters.default).map(!_.isEmpty) ==== Some(true)
+
+  def smaller = prop { p : PositiveInt =>
+    GenPlus.smaller(Gen.size)(Gen.Parameters.default.withSize(p.value)).get must beLessThan(p.value)
+  }
 }

@@ -54,4 +54,7 @@ object GenPlus {
     r <- checkGen(a, label, check)
   } yield r
 
+  // Generate something smaller
+  def smaller[A](g: => Gen[A]): Gen[A] =
+    Gen.sized(s => Gen.resize(s / 2, g))
 }
