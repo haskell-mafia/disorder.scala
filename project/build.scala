@@ -7,6 +7,9 @@ import com.ambiata.promulgate.project.ProjectPlugin._
 object build extends Build {
   type Settings = Def.Setting[_]
 
+  lazy val ossBucket: String =
+    sys.env.getOrElse("AMBIATA_IVY_OSS", "ambiata-oss")
+
   lazy val disorder = Project(
     id = "disorder"
   , base = file(".")
@@ -31,6 +34,6 @@ object build extends Build {
       , "-Yinline-warnings"
       )
     , javacOptions ++= Seq("-source", "1.6", "-target", "1.6")
-    ) ++ promulgate.library(s"com.ambiata.disorder", "ambiata-oss")
+    ) ++ promulgate.library(s"com.ambiata.disorder", ossBucket)
   )
 }
